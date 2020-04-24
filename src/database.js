@@ -15,7 +15,7 @@ const createTable = async () => {
           `CREATE TABLE IF NOT EXISTS
            VISITORS(
            ID  SERIAL PRIMARY KEY,
-           visitor_name VARCHAR(60),
+           visitor_name VARCHAR(200),
            visitors_age  INT,
            date_of_visit  DATE,
            time_of_visit  TIME,
@@ -50,7 +50,6 @@ const addNewVisitor = async (name, age, date, time, assistant, comment) => {
     };
 };
 
-
 const viewVisitor = async () => {
     try{
        const query = await pool.query(
@@ -67,4 +66,42 @@ const viewVisitor = async () => {
     };
 };
 
-module.exports = {addNewVisitor, createTable, viewVisitor};
+
+const deleteVisitor = async (id) => {
+    try{
+        const query = await pool.query(
+            `
+          DELETE  FROM VISITORS WHERE id = ${id}
+          ;`
+        )
+
+        console.log(query)
+        console.log('deleted successfully')
+
+        return query;
+
+    }catch(e) {
+        console.log(e);
+
+    };
+};
+
+
+const listVisitor = async () => {
+    try{
+        const query = await pool.query(
+            `
+            SELECT * FROM VISITORS;`
+
+        )
+        console.log(query.rows)
+        console.log('successfully')
+        return query.rows;
+
+    }catch(e) {
+        console.log(e);
+
+    };
+};
+
+module.exports = {addNewVisitor, createTable, viewVisitor, listVisitor, deleteVisitor};
