@@ -1,6 +1,7 @@
 const {addNewVisitor,createTable,listVisitor,deleteVisitor} = require('./database');
 
 const express = require('express');
+var bodyParser = require('body-parser')
 const app = express();
 const path = require('path');
 const cors = require('cors')
@@ -10,9 +11,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded());
 
-
-app.use('/single-page-app', express.static(__dirname + '/'));
-
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/single-page-app', express.static('public'))
 
 
 //rendering the form to host 
@@ -40,7 +40,6 @@ createTable();
 
 
   });
-
 
 
 app.get('/viewAllVisitors', async(req, res) =>{
