@@ -1,45 +1,77 @@
-describe("Express Ajax Apis", () => {
-    const axios = require('axios');
+"use strict";
 
-    //const { Pool } = require('pg');
-    //const fixture = require('./fixture')
+const request = require("axios");
+
+describe("GET /visitor data", function() {
+  beforeEach(function() {
+   
+    require("../src/app");
+  });
 
 
-    // beforeEach(() =>{
-    //     //server = require('../src/app.js')
-    //     const pool = new Pool();
+  it("returns html form!", function(done) {
+    request.get("http://localhost:3000/single-page-app", function(error, response, html){
+      expect(html).toBe("index.html");
+    });
 
+    done();
+  });
 
-    // });
-
-    
-     let addVisitor = {
-
-        name: 'nothile',
-        assistant: 'sphiwe',
-        age: '25',
-        date: '05/05/2020',
-        time: '12:00',
-        comments: 'greate'
-     }
-
-     
-
-     it('should add visitor to db', async (done) => {
-         const res = await axios.post('http://127.0.0.1:3000/newVisitor', addVisitor);
-
-         expect(visitorData.name).toEqual(addVisitor.name);
-         expect(visitorData.age).toEqual(addVisitor.age);
-         expect(new Date (visitorData.date)).toEqual(new Date(addVisitor.date));
-         expect(visitorData.time).toEqual(addVisitor.time);
-         expect(visitorData.comments).toEqual(addVisitor.comments);
-     });
-
-     it('should display added visitors', async() =>{
-        const res = await axios.get('http://127.0.0.1:3000/newVisitor')
-
-        visitorData = res.data.addVisitor;
-        expect(res.data.visitors).not.toBe([]);
-
-     });
+  it('should fail on POST', function (done) {
+   request.post("http://localhost:3000/newVisitor", {}, function (error, response) {
+       expect(response.statusCode).toEqual(404);
+   });
+   done();
 });
+
+it('Should all view visitors',   function (done) {
+     request.get('http://127.0.0.1:3000/viewAllVisitors', function(res, body){
+      
+      objVisitor = res.body.visitor;
+
+      expect(res.body.status).toBe('ok');
+      expect(res.body.visitors).not.toBe([]);
+
+   });
+
+   
+
+   done();
+});
+
+
+
+});
+
+//   it("returns 404", function(done) {
+//    var data = {};
+//    request.post("http://localhost:3000/newVisitor", (error, response, body) =>{
+
+//       data.status = response.statusCode;
+//       data.body = JSON.parse(body);
+//    // request("http://localhost:3000/newVisitor", function(error, response, html){
+//      expect(response.body).toBe();
+//    });
+
+//    done();
+//  });
+
+
+
+
+// });
+
+// describe("POST /world", function() {
+//    beforeEach(function() {
+//      //we start express app here
+//      require("../src/app");
+//    });
+ 
+ 
+//    it('should fail on POST', function (done) {
+//       request.post("http://localhost:3000/newVisitors", {}, function (error, response) {
+//           expect(response.statusCode).toEqual(404);
+//       });
+//       done();
+//   });
+// });
