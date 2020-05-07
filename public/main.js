@@ -7,7 +7,7 @@ form.onsubmit = async e =>                                                      
         age: e.target[2].value,
         date: e.target[3].value,
         time: e.target[4].value,
-        comment:e.target[5].value,
+        comment:e.target[5].value
     }
 
 

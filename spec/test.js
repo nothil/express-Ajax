@@ -39,39 +39,18 @@ it('Should all view visitors',   function (done) {
    done();
 });
 
+it('should delete a visitor',  function (done){
+   request.delete('http://127.0.0.1:3000/deleteVisitor/${id}', function(id, res){
+      expect(res.data.status).toBe('ok');
+		expect(res.data.visitors).not.toEqual([]);
+
+   })
+
+   done();
+
+})
+
 
 
 });
 
-//   it("returns 404", function(done) {
-//    var data = {};
-//    request.post("http://localhost:3000/newVisitor", (error, response, body) =>{
-
-//       data.status = response.statusCode;
-//       data.body = JSON.parse(body);
-//    // request("http://localhost:3000/newVisitor", function(error, response, html){
-//      expect(response.body).toBe();
-//    });
-
-//    done();
-//  });
-
-
-
-
-// });
-
-// describe("POST /world", function() {
-//    beforeEach(function() {
-//      //we start express app here
-//      require("../src/app");
-//    });
- 
- 
-//    it('should fail on POST', function (done) {
-//       request.post("http://localhost:3000/newVisitors", {}, function (error, response) {
-//           expect(response.statusCode).toEqual(404);
-//       });
-//       done();
-//   });
-// });

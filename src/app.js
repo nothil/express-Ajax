@@ -27,13 +27,12 @@ createTable();
 // post which sends to database
  app.post('/newVisitor', async (req, res) =>{
      console.log(req.body);
-     const name = req.body.name;
-     const assistant_name = req.body.assistant;
-     const visitors_age = parseInt(req.body.age, 10);
-     const date_of_visit =req.body.date;
-     const time_of_visit = req.body.time;
-
-     const comments =req.body.comment;
+     const      name =              req.body.name;
+     const      assistant_name =    req.body.assistant;
+     const      visitors_age = parseInt(req.body.age, 10);
+     const      date_of_visit =     req.body.date;
+     const      time_of_visit =     req.body.time;
+     const      comments =          req.body.comment;
 
      const visitors = await addNewVisitor(name, visitors_age, date_of_visit, time_of_visit, assistant_name,comments);
 
@@ -44,7 +43,7 @@ createTable();
 
 app.get('/viewAllVisitors', async(req, res) =>{
     const allVisitors = await listVisitor()
-    res.status(200).json({
+        res.status(200).json({
         status: 'ok',
         visitors: allVisitors
     });
@@ -52,7 +51,7 @@ app.get('/viewAllVisitors', async(req, res) =>{
 })
 
 app.delete('/deleteVisitor/:id', async(req, res) =>{
-    const visitors = await deleteVisitor(req.params.id);
+   const visitors = await deleteVisitor(req.params.id);
     res.sendFile(JSON.stringify(visitors))
     res.end();
 
